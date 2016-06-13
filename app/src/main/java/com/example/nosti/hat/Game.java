@@ -20,6 +20,8 @@ public class Game extends Activity {
     private TextView mTextField;
     private ProgressBar mProgressBar;
     private TextView word;
+    private WordManager wordManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,23 +56,30 @@ public class Game extends Activity {
         }, timeOfGame);
 
         word = (TextView)findViewById(R.id.word);
+        wordManager = new WordManager();
+        word.setText(wordManager.getCurrentWord());
 
         word.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeDown() {
                 Log.d("Swipe", "Down");
-                word.setText("Down");
-
+                wordManager.next();
+                if (wordManager.getCurrentWord() == null)
+                    finish();
+                word.setText(wordManager.getCurrentWord());
             }
 
             @Override
             public void onSwipeUp() {
                 Log.d("Swipe", "Up");
+                GoodAnswerDelegate.goodAnswer(wordManager.getCurrentIndex());
+                wordManager.next();
+                if (wordManager.getCurrentWord() == null)
+                    finish();
+                word.setText(wordManager.getCurrentWord());
                 word.setText("Up");
             }
         });
-
-
     }
 
 

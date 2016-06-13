@@ -36,7 +36,14 @@ public class MainActivity extends Activity {
                 startActivity(game);
             }
         });
+        Log.d("Main", "onCreate");
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d("Main", "onResume");
     }
 
     @Override

@@ -12,6 +12,12 @@ public class Team {
         this.scores = scores;
     }
 
+    public Team(String name) {
+        this.name = name;
+        this.scores = 0;
+    }
+
+
     public String getName() {
         return name;
     }
@@ -26,5 +32,9 @@ public class Team {
 
     public void setScores(int scores) {
         this.scores = scores;
+    }
+
+    public void incScores() {
+        this.scores += 1;
     }
 }

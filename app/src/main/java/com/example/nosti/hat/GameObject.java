@@ -15,17 +15,19 @@ public class GameObject implements Serializable {
     private int timeOfGame;
     private int countWords;
 
+    private List<Team> teams;
+    private int currentTeam;
+
     private ArrayList<WordUnit> gameWords;
 
-    public GameObject( int countPlayers, int timeOfGame, int countWords){
+    public GameObject( int countPlayers, int timeOfGame, int countWords, List<Team> teams){
         this.countPlayers = countPlayers;
         this.timeOfGame = timeOfGame;
         //this.countWords = countWords;                 //TODO
         this.countWords = 3;
         this.gameWords = new ArrayList<WordUnit>(GenWord.genGameWords(SharedObjects.all_words, this.countWords));
-        Log.d("Game", this.gameWords.get(0).getWord());
-        Log.d("Game", this.gameWords.get(1).getWord());
-        Log.d("Game", this.gameWords.get(2).getWord());
+        this.currentTeam = 0;
+        this.teams = teams;
     }
     public GameObject() {
     }
@@ -68,6 +70,20 @@ public class GameObject implements Serializable {
         this.gameWords = gameWords;
     }
 
+    public List<Team> getTeams() {
+        return teams;
+    }
 
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
+    }
+
+    public int getCurrentTeam() {
+        return currentTeam;
+    }
+
+    public void setCurrentTeam(int currentTeam) {
+        this.currentTeam = currentTeam;
+    }
 
 }

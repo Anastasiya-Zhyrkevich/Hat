@@ -13,8 +13,8 @@ import java.util.Random;
  */
 public class GenWord {
 
-    static public int genIndex(ArrayList<WordUnit> wordUnitArrayList){
-        ArrayList<Integer> indexes = new ArrayList<>(wordUnitArrayList.size());
+    static public int genIndex(List<WordUnit> wordUnitArrayList){
+        List<Integer> indexes = new ArrayList<>(wordUnitArrayList.size());
         int ind = 0;
         for (int i = 0; i< wordUnitArrayList.size(); i++)
         {

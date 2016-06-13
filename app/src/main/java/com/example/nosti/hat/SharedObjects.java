@@ -15,8 +15,16 @@ public class SharedObjects {
     public static final int STATIC_INTEGER_TOUR = 111;
 
     private static final String s = "I want to see Ireland";
-    public static final List<String> all_words = new ArrayList<>(Arrays.asList( s.split("\\s+") ));
+    public static final List<String> all_words = new ArrayList<>(Arrays.asList(s.split("\\s+")));
 
+    private static GameObject game;
+
+    public static GameObject getGame() {
+        return game;
+    }
+    public static void setGame(GameObject game) {
+        SharedObjects.game = game;
+    }
     /*{
 
         BufferedReader br = null;
