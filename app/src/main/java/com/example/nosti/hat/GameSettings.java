@@ -28,8 +28,8 @@ public class GameSettings extends Activity{
         setContentView(R.layout.game_settings);
         seekBarWords = (SeekBar) findViewById(R.id.seekBar_words);
         seekBarTime = (SeekBar) findViewById(R.id.seekBar_time);
-        textViewWords = (TextView) findViewById(R.id.game_time);
-        textViewTime= (TextView) findViewById(R.id.count_words);
+        textViewTime = (TextView) findViewById(R.id.game_time);
+        textViewWords = (TextView) findViewById(R.id.count_words);
 
         seekBarWords.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -49,7 +49,7 @@ public class GameSettings extends Activity{
         seekBarTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textViewTime.setText("Time of the game : " + progress);
+                textViewTime.setText("Seconds of the game : " + progress);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -67,13 +67,16 @@ public class GameSettings extends Activity{
             public void onClick(View v) {
                 SeekBar seekBarWords = (SeekBar) findViewById(R.id.seekBar_words);
                 SeekBar seekBarTime = (SeekBar) findViewById(R.id.seekBar_time);
-                Intent resultIntent = new Intent();
+                //Intent resultIntent = new Intent();
                 GameObject gameObject = new GameObject(
                         2,
                         seekBarTime.getProgress(),
                         seekBarWords.getProgress());
-                resultIntent.putExtra(PUBLIC_STATIC_STRING_IDENTIFIER, gameObject);
-                setResult(Activity.RESULT_OK, resultIntent);
+                Intent startGame = new Intent(GameSettings.this, MainActivity.class);
+                startActivity(startGame);
+                //resultIntent.putExtra(PUBLIC_STATIC_STRING_IDENTIFIER, gameObject);
+                //setResult(Activity.RESULT_OK, resultIntent);
+
                 finish();
             }
         });

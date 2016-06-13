@@ -1,6 +1,7 @@
 package com.example.nosti.hat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Created by nosti on 5/24/2016.
@@ -27,7 +30,6 @@ public class Game extends Activity {
         timeOfGame = 10000;
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mProgressBar.setMax(timeOfGame);
-
 
 
         new CountDownTimer(timeOfGame, 10) {
@@ -70,9 +72,6 @@ public class Game extends Activity {
 
 
     }
-
-
-
 
 
 

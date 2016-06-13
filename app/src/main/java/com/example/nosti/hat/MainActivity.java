@@ -1,5 +1,6 @@
 package com.example.nosti.hat;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,17 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private Button but;
     private String DEBUG_TAG = "Debug";
-    private Fragment frag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         but = (Button) findViewById(R.id.button);
 
         but.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 Intent game = new Intent(MainActivity.this, Game.class);
                 startActivity(game);
-
             }
         });
 
