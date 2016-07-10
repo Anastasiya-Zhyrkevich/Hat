@@ -45,7 +45,7 @@ public class GameSettings extends Activity{
                 //Intent resultIntent = new Intent();
 
                 checkBoxIndexes = new ArrayList<Integer>(Arrays.asList(R.id.checkBox1, R.id.checkBox2, R.id.checkBox3, R.id.checkBox4));
-                List<Team> teams = new ArrayList<>();
+                ArrayList<Team> teams = new ArrayList<>();
                 for (int i = 0; i < checkBoxIndexes.size(); i++){
                     CheckBox checkBox = (CheckBox) findViewById(checkBoxIndexes.get(i));
                     if (checkBox.isChecked())

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class Game extends Activity {
 
             public void onTick(long millisUntilFinished) {
                 mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-                mProgressBar.setProgress((int)(millisUntilFinished));
+                mProgressBar.setProgress((int) (millisUntilFinished));
 
             }
 
@@ -51,11 +52,11 @@ public class Game extends Activity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                finish();
+                finishEarly(false);
             }
         }, timeOfGame);
 
-        word = (TextView)findViewById(R.id.word);
+        word = (TextView) findViewById(R.id.word);
         wordManager = new WordManager();
         word.setText(wordManager.getCurrentWord());
 
@@ -64,8 +65,10 @@ public class Game extends Activity {
             public void onSwipeDown() {
                 Log.d("Swipe", "Down");
                 wordManager.next();
-                if (wordManager.getCurrentWord() == null)
-                    finish();
+                if (wordManager.getCurrentWord() == null) {
+                    Log.d("Main", "Null words");
+                    finishEarly(true);
+                }
                 word.setText(wordManager.getCurrentWord());
             }
 
@@ -74,15 +77,22 @@ public class Game extends Activity {
                 Log.d("Swipe", "Up");
                 GoodAnswerDelegate.goodAnswer(wordManager.getCurrentIndex());
                 wordManager.next();
-                if (wordManager.getCurrentWord() == null)
-                    finish();
+                if (wordManager.getCurrentWord() == null) {
+                    Log.d("Main", "Null words");
+                    finishEarly(true);
+                }
                 word.setText(wordManager.getCurrentWord());
-                word.setText("Up");
             }
         });
     }
 
 
+    private void finishEarly(boolean isEarly){
+        Intent intent = new Intent();
+        intent.putExtra(SharedObjects.TOUR_IS_FINISHED_EARLY, isEarly);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 
 
 }

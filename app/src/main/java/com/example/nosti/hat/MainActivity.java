@@ -16,9 +16,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
     private Button but;
+    private Button finish_game;
     private String DEBUG_TAG = "Debug";
 
     @Override
@@ -31,19 +33,49 @@ public class MainActivity extends Activity {
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Intent game = new Intent(MainActivity.this, Game.class);
-                startActivity(game);
+                startActivityForResult(game, SharedObjects.REQUEST_CODE);
             }
         });
+
+        finish_game = (Button) findViewById(R.id.finish_game);
+
+        finish_game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         Log.d("Main", "onCreate");
 
+        ListView lw = (ListView) findViewById(R.id.listView);
+        //lw.setAdapter();                                        // strange    //TODO
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (data == null)
+            return;
+        SharedObjects.getGame().nextCurrentTeam();
+        boolean isFinishedTour = data.getBooleanExtra(SharedObjects.TOUR_IS_FINISHED_EARLY, false);
+        Log.d("Main", "" + isFinishedTour);
+        if (isFinishedTour){
+            SharedObjects.getGame().nextTour();
+        }
     }
 
     @Override
     protected void onResume(){
         super.onResume();
         Log.d("Main", "onResume");
+        showResults();
+        GameObject game = SharedObjects.getGame();
+        if (game.isStartTour() && game.isValidGame()) {
+            startTour();
+            SharedObjects.getGame().setStartTour(false);
+        }
     }
 
     @Override
@@ -67,6 +99,21 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    private void startTour(){
+        WordManager wm = new WordManager();
+        wm.allUnGuessed();
+        Intent intent = new Intent(MainActivity.this, DecsTour.class);
+        startActivity(intent);
+    }
+
+    private void showResults(){
+        GameObject game = SharedObjects.getGame();
+        Log.d("Main", game.toString());
+    }
+
 
 
 }
